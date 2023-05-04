@@ -25,12 +25,14 @@ io.on('connection', socket=>{
     socket.on('message', data=>{
         messages.push(data);
         io.emit('messageLogs', messages);
-    })
-})
+    });
+
+    socket.on('authenticate', data =>{
+        socket.emit('messageLogs', messages);
+        socket.broadcast.emit('newUswerConnected', data)
+    });
+});
 
 
-socket.on('authenticate', data =>{
-    socket.emit('messageLogs', messages);
-    socket.broadcast.emit('newUswerConnected', data)
-})
+
 
